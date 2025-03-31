@@ -41,3 +41,12 @@ In our case, we will use minikube as the context :
 ```bash
 kubectl config use-context minikube
 ```
+
+### Testing Minikube
+Deploy a quick app to test:
+```bash
+kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+minikube service hello-minikube
+```
+This should open your browser with a working echo server.
