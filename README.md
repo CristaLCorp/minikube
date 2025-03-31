@@ -17,3 +17,5 @@ Check everything is running :
 kubectl get nodes
 kubectl cluster-info
 ```
+
+### Addons
