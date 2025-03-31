@@ -20,6 +20,9 @@ kubectl cluster-info
 
 ### Addons
 To make our life easier we are going to install 3 addons :  
-ingress : Minikube [Ingress]("description") Controller  
+ingress : Minikube [Ingress](## "In Kubernetes, an Ingress is a resource that manages external access to services, typically HTTP/HTTPS routes. It allows you to:
+* Route traffic based on hostnames (e.g., app.local)
+* Use path-based routing (e.g., /api, /dashboard)
+* Terminate TLS (HTTPS)") Controller  
 metrics-server :  
 dashboard :  
