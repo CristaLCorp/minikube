@@ -19,7 +19,7 @@ kubectl cluster-info
 ```
 
 ### Addons
-To make our life easier we are going to install 3 addons :
-ingress : Minikube [Ingress](## "description") Controller
-metrics-server : 
-dashboard : 
+To make our life easier we are going to install 3 addons :  
+ingress : Minikube [Ingress]("description") Controller  
+metrics-server :  
+dashboard :  
