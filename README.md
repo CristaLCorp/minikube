@@ -23,3 +23,21 @@ To make our life easier we are going to install 3 addons :
 * **ingress** : Minikube [Ingress](## "In Kubernetes, an Ingress is a resource that manages external access to services, typically HTTP/HTTPS routes. It allows you to: Route traffic based on hostnames (e.g., app.local), Use path-based routing (e.g., /api, /dashboard), Terminate TLS (HTTPS)") Controller  
 * **metrics-server** : A lightweight, resource-efficient service that gathers resource usage metrics (CPU, memory) from each node and pod, and exposes them through the Kubernetes API. Deploy [Kubernetes Metrics Server](https://github.com/kubernetes-sigs/metrics-server) into the local cluser. 
 * **dashboard** : The [Kubernetes Dashboard](## "Provides a convenient graphical interface to inspect cluster resources (pods, deployments, services, etc.), view logs and events, scale deployments, edit YAML manifests directly in the browser, apply changes, restart pods, etc."), a web-based UI for managing and visualizing the cluster.
+
+```bash
+minikube addons enable ingress
+minikube addons enable metrics-server
+minikube addons enable dashboard
+minikube dashboard &
+```
+
+### Context
+In Kubernetes, a context defines which cluster, which user, and which namespace your kubectl command is targeting.  
+A context is just a named configuration that wraps these three pieces:  
+* Cluster (e.g., minikube, prod-cluster)  
+* User (e.g., admin, developer)  
+* Namespace (optional; e.g., default, dev, staging)  
+In our case, we will use minikube as the context :
+```bash
+kubectl config use-context minikube
+```
