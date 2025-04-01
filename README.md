@@ -50,3 +50,24 @@ kubectl expose deployment hello-minikube --type=NodePort --port=8080
 minikube service hello-minikube
 ```
 This should open your browser with a working echo server.
+
+## Multi-Environment GitOps Layout
+Let s set up our cluster with a multi-env production ready directory layout. It will look like this :
+```graphql
+gitops-repo/
+├── apps/
+│   └── myapp/
+│       ├── dev/
+│       │   └── values.yaml
+│       ├── staging/
+│       │   └── values.yaml
+│       └── prod/
+│           └── values.yaml
+├── charts/
+│   └── myapp/
+│       └── templates/
+├── argo/
+│   ├── myapp-dev.yaml
+│   ├── myapp-staging.yaml
+│   └── myapp-prod.yaml
+```
