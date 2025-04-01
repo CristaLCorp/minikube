@@ -1,0 +1,22 @@
+# argo/myapp-staging.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-staging
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  source:
+    repoURL: https://github.com/cristalcorp/minikube
+    targetRevision: HEAD
+    path: apps/myapp/staging
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

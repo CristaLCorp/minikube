@@ -1,11 +1,9 @@
-# should not be used. Here only to show an example of mono env deployement
-
 replicaCount: 1
 
 image:
   repository: ghcr.io/cristalcorp/minikube
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: ClusterIP

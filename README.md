@@ -71,8 +71,8 @@ gitops-repo/
 │   ├── myapp-staging.yaml
 │   └── myapp-prod.yaml
 ```
-* charts/myapp/: shared chart logic (templates, defaults)
+* **charts/myapp/**: shared chart logic (templates, defaults)
 
-* apps/myapp/dev: overrides for dev (e.g., fewer replicas, latest tag)
+* **apps/myapp/dev**: overrides for dev (e.g., fewer replicas, latest tag)
 
-* apps/myapp/prod: overrides for prod (e.g., fixed tag, tighter resources)
+* **apps/myapp/prod**: overrides for prod (e.g., fixed tag, tighter resources)
