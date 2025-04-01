@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/cristalcorp/minikube
-  tag: latest
+  tag: 89c5eacdbc7b4a9cfef3e95b649de8e9007f863c
   pullPolicy: Always
 
 service:
