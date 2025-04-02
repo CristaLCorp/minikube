@@ -1,0 +1,10 @@
+replicaCount: 3
+
+image:
+  repository: ghcr.io/cristalcorp/hello-nginx-2
+  tag: v1.0.0-staging
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
