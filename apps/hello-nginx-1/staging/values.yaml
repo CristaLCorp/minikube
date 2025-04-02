@@ -1,7 +1,7 @@
 replicaCount: 3
 
 image:
-  repository: ghcr.io/cristalcorp/minikube
+  repository: ghcr.io/cristalcorp/hello-nginx-1
   tag: v1.0.0-staging
   pullPolicy: IfNotPresent
 

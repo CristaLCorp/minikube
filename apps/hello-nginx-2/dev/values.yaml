@@ -1,8 +1,13 @@
 replicaCount: 1
 
 image:
+<<<<<<< HEAD
   repository: ghcr.io/cristalcorp/minikube
   tag: 89c5eacdbc7b4a9cfef3e95b649de8e9007f863c
+=======
+  repository: ghcr.io/cristalcorp/hello-nginx-2
+  tag: latest
+>>>>>>> 3265510 (add 2 external apps)
   pullPolicy: Always
 
 service:

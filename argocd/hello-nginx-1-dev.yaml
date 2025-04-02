@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-nginx-1-dev
+  namespace: argocd
+spec:
+  destination:
+    namespace: hello-nginx-1-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/cristalcorp/minikube
+    targetRevision: HEAD
+    path: apps/hello-nginx-1/dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
