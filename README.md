@@ -64,8 +64,9 @@ Congratz ! Your cluster is working !
 Let s move on into making it production ready.
 
 ## Multi-Environment GitOps Layout
-Let s set up our cluster with a multi-env production ready directory layout. It will look like this :
-```bash
+<details>
+Let s set up our cluster with a multi-env production ready directory layout. It will look like <summary>this</summary> :
+```
 gitops-repo/
 ├── .gitignore
 ├── .github/
@@ -132,6 +133,7 @@ gitops-repo/
     ├── hello-nginx-2-staging.yaml
     └── hello-nginx-2-prod.yaml
 ```
+</details>
 * **charts/nginx/**: shared chart logic (templates, defaults) (#TODO : use Kustomize to reduce overhead)
 
 * **apps/hello-nginx-{1,2}/dev**: overrides for dev (e.g., fewer replicas, latest tag)
