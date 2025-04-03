@@ -72,65 +72,65 @@ gitops-repo/
 │   └── workflows/
 │       └── ci-cd.yaml
 ├── apps/
-│   └── hello-nginx-1/
+│   ├── hello-nginx-1/
 │   │   ├── dev/
-│   │   │   └── templates
-│   │   │   │   └── _helpers.tpl
-│   │   │   │   └── deployment.yaml
+│   │   │   ├── templates
+│   │   │   │   ├── _helpers.tpl
+│   │   │   │   ├── deployment.yaml
 │   │   │   │   └── service.yaml
-│   │   │   └── values.yaml
+│   │   │   ├── values.yaml
 │   │   │   └── Chart.yaml
 │   │   ├── staging/
-│   │   │   └── templates
-│   │   │   │   └── _helpers.tpl
-│   │   │   │   └── deployment.yaml
+│   │   │   ├── templates
+│   │   │   │   ├── _helpers.tpl
+│   │   │   │   ├── deployment.yaml
 │   │   │   │   └── service.yaml
-│   │   │   └── values.yaml
+│   │   │   ├── values.yaml
 │   │   │   └── Chart.yaml
-│   │   └── prod/
-│   │   │   └── templates
-│   │   │   │   └── _helpers.tpl
-│   │   │   │   └── deployment.yaml
+│   │   ├── prod/
+│   │   │   ├── templates
+│   │   │   │   ├── _helpers.tpl
+│   │   │   │   ├── deployment.yaml
 │   │   │   │   └── service.yaml
-│   │   │   └── values.yaml
+│   │   │   ├── values.yaml
 │   │   │   └── Chart.yaml
 │   └── hello-nginx-2/
 │       ├── dev/
-│       │   └── templates
-│       |   |   └── _helpers.tpl
-│       |   |   └── deployment.yaml
+│       │   ├── templates
+│       |   |   ├── _helpers.tpl
+│       |   |   ├── deployment.yaml
 │       |   |   └── service.yaml
-│       │   └── values.yaml
+│       │   ├── values.yaml
 │       │   └── Chart.yaml
 │       ├── staging/
-│       │   └── templates
-│       |   |   └── _helpers.tpl
-│       |   |   └── deployment.yaml
+│       │   ├── templates
+│       |   |   ├── _helpers.tpl
+│       |   |   ├── deployment.yaml
 │       |   |   └── service.yaml
-│       │   └── values.yaml
+│       │   ├── values.yaml
 │       │   └── Chart.yaml
-│       └── prod/
-│       │   └── templates
-│       |   |   └── _helpers.tpl
-│       |   |   └── deployment.yaml
+│       ├── prod/
+│       │   ├── templates
+│       |   |   ├── _helpers.tpl
+│       |   |   ├── deployment.yaml
 │       |   |   └── service.yaml
-│       │   └── values.yaml
+│       │   ├── values.yaml
 │       │   └── Chart.yaml
 ├── charts/
 │   └── nginx/
 │       └── templates/                  # templates present in every app/namespace 
-│       |   └── _helpers.tpl
-│       |   └── deployment.yaml
+│       |   ├── _helpers.tpl
+│       |   ├── deployment.yaml
 │       |   └── service.yaml
-|       └── values.yaml                 # default values if not override locally
+|       ├── values.yaml                 # default values if not override locally
 |       └── Charts.yaml
-├── argocd/                             # apps that are being monitored by argocd
-│   └── hello-nginx-1-dev.yaml
-│   └── hello-nginx-1-staging.yaml
-│   └── hello-nginx-1-prod.yaml
-│   └── hello-nginx-2-dev.yaml
-│   └── hello-nginx-2-staging.yaml
-│   └── hello-nginx-2-prod.yaml
+└── argocd/                             # apps that are being monitored by argocd
+    ├── hello-nginx-1-dev.yaml
+    ├── hello-nginx-1-staging.yaml
+    ├── hello-nginx-1-prod.yaml
+    ├── hello-nginx-2-dev.yaml
+    ├── hello-nginx-2-staging.yaml
+    └── hello-nginx-2-prod.yaml
 ```
 * **charts/nginx/**: shared chart logic (templates, defaults) (#TODO : use Kustomize to reduce overhead)
 
