@@ -67,7 +67,7 @@ Let s move on into making it production ready.
 Let s set up our cluster with a multi-env production ready directory layout. It will look like this :
 <details>
 
-<summary>click me</summary> :
+<summary>click me</summary>
 ```bash
 gitops-repo/
 ├── .gitignore
