@@ -66,27 +66,27 @@ gitops-repo/
 │       └── ci-cd.yaml
 ├── apps/
 │   └── hello-nginx-1/
-│   |   ├── dev/
-│   |   │   └── templates
-│   |   |   |   └── _helpers.tpl
-│   |   |   |   └── deployment.yaml
-│   |   |   |   └── service.yaml
-│   |   │   └── values.yaml
-│   |   │   └── Chart.yaml
-│   |   ├── staging/
-│   |   │   └── templates
-│   |   |   |   └── _helpers.tpl
-│   |   |   |   └── deployment.yaml
-│   |   |   |   └── service.yaml
-│   |   │   └── values.yaml
-│   |   │   └── Chart.yaml
-│   |   └── prod/
-│   |   │   └── templates
-│   |   |   |   └── _helpers.tpl
-│   |   |   |   └── deployment.yaml
-│   |   |   |   └── service.yaml
-│   |   │   └── values.yaml
-│   |   │   └── Chart.yaml
+│   │   ├── dev/
+│   │   │   └── templates
+│   │   │   │   └── _helpers.tpl
+│   │   │   │   └── deployment.yaml
+│   │   │   │   └── service.yaml
+│   │   │   └── values.yaml
+│   │   │   └── Chart.yaml
+│   │   ├── staging/
+│   │   │   └── templates
+│   │   │   │   └── _helpers.tpl
+│   │   │   │   └── deployment.yaml
+│   │   │   │   └── service.yaml
+│   │   │   └── values.yaml
+│   │   │   └── Chart.yaml
+│   │   └── prod/
+│   │   │   └── templates
+│   │   │   │   └── _helpers.tpl
+│   │   │   │   └── deployment.yaml
+│   │   │   │   └── service.yaml
+│   │   │   └── values.yaml
+│   │   │   └── Chart.yaml
 │   └── hello-nginx-2/
 │       ├── dev/
 │       │   └── templates
