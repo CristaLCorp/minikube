@@ -198,6 +198,23 @@ kubectl get events -n hello-nginx-1-dev --sort-by=.metadata.creationTimestamp
 ```
 
 ## Helm
+A typical Helm chart directory includes:​
+```bash
+nginx/
+  ├── Chart.yaml
+  ├── values.yaml
+  ├── templates/
+  │   ├── deployment.yaml
+  │   ├── service.yaml
+  │   └── ... (other templates)
+  └── ... (optional files like README.md, LICENSE)
+```
+Key Components:
+
+* Chart.yaml: Contains metadata about the chart, such as its name, version, and description.​
+* values.yaml: Holds default configuration values that templates can reference.​
+* templates/: Contains Kubernetes manifest templates that Helm renders using the values provided.
+
 ### Debugging
 if you see this error :
 ```bash
