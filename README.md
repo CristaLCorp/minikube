@@ -132,10 +132,35 @@ gitops-repo/
     ├── hello-nginx-2-staging.yaml
     └── hello-nginx-2-prod.yaml
 ```
-* **charts/nginx/**: shared chart logic (templates, defaults) (#TODO : use Kustomize to reduce overhead)
 
 * **apps/hello-nginx-{1,2}/dev**: overrides for dev (e.g., fewer replicas, latest tag)
 
 * **apps/hello-nginx-{1,2}/prod**: overrides for prod (e.g., fixed tag, tighter resources)
 
-* **argocd/**: apps that argocd should watch
+* **charts/nginx/**: shared chart logic (templates, defaults) (#TODO : use Kustomize to reduce overhead)
+
+* **argocd/**: congig files for apps that argocd will watch
+
+### ArgoCD : Setup
+
+### ArgoCD : Config
+ Port Forwarding (makes it available at this url : http://127.0.0.1:8080):
+ ```bash
+ kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+Login :
+```bash
+argocd login localhost:8080
+```
+It will prompt for:
+* Username: admin
+* Password: (you can retrieve from secret — see below)
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+Use that as the password for admin.
+Once logged in:
+```bash
+argocd app list
+argocd app get hello-nginx-1-dev
+```
