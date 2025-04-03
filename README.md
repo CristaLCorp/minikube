@@ -159,8 +159,40 @@ It will prompt for:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 Use that as the password for admin.
-Once logged in:
+
+### ArgoCD : App deployment
+You first need to create a namespace for every app. 
+
+Let s check if it exists :
+```bash
+kubectl get ns hello-nginx-1-dev
+```
+If it does not, let s create it :
+```bash
+kubectl create ns hello-nginx-1-dev
+```
+Lets see what app are configured so far :
 ```bash
 argocd app list
+```
+Found yours ? Inspect it :
+```bash
 argocd app get hello-nginx-1-dev
+```
+Look for:
+* Status: Synced or OutOfSync
+* Health: Healthy or Missing, Progressing, etc.
+* Destination: namespace + server
+* Any error message in the "Conditions" section
+
+Finally sync the app if need be :
+```bash
+argocd app sync hello-nginx-1-dev
+```
+
+### ArgoCD : Debug
+```bash
+kubectl get applications -n argocd
+kubectl logs -n argocd deploy/argocd-application-controller
+kubectl get events -n hello-nginx-1-dev --sort-by=.metadata.creationTimestamp
 ```
