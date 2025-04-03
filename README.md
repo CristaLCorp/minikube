@@ -64,9 +64,11 @@ Congratz ! Your cluster is working !
 Let s move on into making it production ready.
 
 ## Multi-Environment GitOps Layout
+Let s set up our cluster with a multi-env production ready directory layout. It will look like this :
 <details>
-Let s set up our cluster with a multi-env production ready directory layout. It will look like <summary>this</summary> :
-```
+
+<summary>click me</summary> :
+```bash
 gitops-repo/
 ├── .gitignore
 ├── .github/
