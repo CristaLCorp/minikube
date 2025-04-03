@@ -139,7 +139,7 @@ gitops-repo/
 
 * **charts/nginx/**: shared chart logic (templates, defaults) (#TODO : use Kustomize to reduce overhead)
 
-* **argocd/**: congig files for apps that argocd will watch
+* **argocd/**: config files for apps that argocd will watch
 
 ### ArgoCD : Setup
 
