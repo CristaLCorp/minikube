@@ -50,7 +50,14 @@ kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0
 kubectl expose deployment hello-minikube --type=NodePort --port=8081
 minikube service hello-minikube
 ```
+
 This should open your browser with a working echo server. 
+
+You can then delete your deployment, like this :
+```bash
+kubectl delete deployment hello-minikube -n default 
+```
+Specifying the namespace is a good habit to avoid mistakes...
 
 Congratz ! Your cluster is working !
 
