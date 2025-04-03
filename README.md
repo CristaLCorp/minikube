@@ -65,7 +65,7 @@ Let s move on into making it production ready.
 
 ## Multi-Environment GitOps Layout
 Let s set up our cluster with a multi-env production ready directory layout. It will look like this :
-```graphql
+```bash
 gitops-repo/
 ├── .gitignore
 ├── .github/
@@ -118,7 +118,7 @@ gitops-repo/
 │       │   └── Chart.yaml
 ├── charts/
 │   └── nginx/
-│       └── templates/                  # templates present in every app/namespace 
+│       ├── templates/                  # templates present in every app/namespace 
 │       │   ├── _helpers.tpl
 │       │   ├── deployment.yaml
 │       │   └── service.yaml
