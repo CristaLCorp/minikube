@@ -196,3 +196,45 @@ kubectl get applications -n argocd
 kubectl logs -n argocd deploy/argocd-application-controller
 kubectl get events -n hello-nginx-1-dev --sort-by=.metadata.creationTimestamp
 ```
+
+## Helm
+### Debugging
+if you see this error :
+```bash
+[ERROR] templates/: template: nginx/templates/service.yaml:4:11:
+executing "nginx/templates/service.yaml" at <include "nginx.fullname" .>:
+error calling include: template: no template "nginx.fullname" associated with template "gotpl"
+```
+This means your Helm chart is using:
+```yaml
+{{ include "nginx.fullname" . }}
+```
+...but there’s no definition for "nginx.fullname" in your chart. These include helpers typically live in a file named:
+```bash
+charts/nginx/templates/_helpers.tpl
+```
+Quick fix ? 
+Create a file at: charts/nginx/templates/_helpers.tpl
+
+Add the following content (you can reuse this for all your apps):
+```bash
+{{- define "nginx.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end }}
+
+{{- define "nginx.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+
+{{- define "nginx.labels" -}}
+app.kubernetes.io/name: {{ include "nginx.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+```
