@@ -30,6 +30,7 @@ minikube addons enable metrics-server
 minikube addons enable dashboard
 minikube dashboard &
 ```
+The dashboard will then be accessible at : http://120.0.0.1:58420
 
 ### Context
 In Kubernetes, a context defines which cluster, which user, and which namespace your kubectl command is targeting.  
@@ -46,33 +47,88 @@ kubectl config use-context minikube
 Deploy a quick app to test:
 ```bash
 kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0
-kubectl expose deployment hello-minikube --type=NodePort --port=8080
+kubectl expose deployment hello-minikube --type=NodePort --port=8081
 minikube service hello-minikube
 ```
-This should open your browser with a working echo server.
+This should open your browser with a working echo server. 
+
+Congratz ! Your cluster is working !
+
+Let s move on into making it production ready.
 
 ## Multi-Environment GitOps Layout
 Let s set up our cluster with a multi-env production ready directory layout. It will look like this :
 ```graphql
 gitops-repo/
+├── .gitignore
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yaml
 ├── apps/
-│   └── myapp/
+│   └── hello-nginx-1/
+│   |   ├── dev/
+│   |   │   └── templates
+│   |   |   |   └── _helpers.tpl
+│   |   |   |   └── deployment.yaml
+│   |   |   |   └── service.yaml
+│   |   │   └── values.yaml
+│   |   │   └── Chart.yaml
+│   |   ├── staging/
+│   |   │   └── templates
+│   |   |   |   └── _helpers.tpl
+│   |   |   |   └── deployment.yaml
+│   |   |   |   └── service.yaml
+│   |   │   └── values.yaml
+│   |   │   └── Chart.yaml
+│   |   └── prod/
+│   |   │   └── templates
+│   |   |   |   └── _helpers.tpl
+│   |   |   |   └── deployment.yaml
+│   |   |   |   └── service.yaml
+│   |   │   └── values.yaml
+│   |   │   └── Chart.yaml
+│   └── hello-nginx-2/
 │       ├── dev/
+│       │   └── templates
+│       |   |   └── _helpers.tpl
+│       |   |   └── deployment.yaml
+│       |   |   └── service.yaml
 │       │   └── values.yaml
+│       │   └── Chart.yaml
 │       ├── staging/
+│       │   └── templates
+│       |   |   └── _helpers.tpl
+│       |   |   └── deployment.yaml
+│       |   |   └── service.yaml
 │       │   └── values.yaml
+│       │   └── Chart.yaml
 │       └── prod/
-│           └── values.yaml
+│       │   └── templates
+│       |   |   └── _helpers.tpl
+│       |   |   └── deployment.yaml
+│       |   |   └── service.yaml
+│       │   └── values.yaml
+│       │   └── Chart.yaml
 ├── charts/
-│   └── myapp/
-│       └── templates/
-├── argo/
-│   ├── myapp-dev.yaml
-│   ├── myapp-staging.yaml
-│   └── myapp-prod.yaml
+│   └── nginx/
+│       └── templates/                  # templates present in every app/namespace 
+│       |   └── _helpers.tpl
+│       |   └── deployment.yaml
+│       |   └── service.yaml
+|       └── values.yaml                 # default values if not override locally
+|       └── Charts.yaml
+├── argocd/                             # apps that are being monitored by argocd
+│   └── hello-nginx-1-dev.yaml
+│   └── hello-nginx-1-staging.yaml
+│   └── hello-nginx-1-prod.yaml
+│   └── hello-nginx-2-dev.yaml
+│   └── hello-nginx-2-staging.yaml
+│   └── hello-nginx-2-prod.yaml
 ```
-* **charts/myapp/**: shared chart logic (templates, defaults)
+* **charts/nginx/**: shared chart logic (templates, defaults) (#TODO : use Kustomize to reduce overhead)
 
-* **apps/myapp/dev**: overrides for dev (e.g., fewer replicas, latest tag)
+* **apps/hello-nginx-{1,2}/dev**: overrides for dev (e.g., fewer replicas, latest tag)
 
-* **apps/myapp/prod**: overrides for prod (e.g., fixed tag, tighter resources)
+* **apps/hello-nginx-{1,2}/prod**: overrides for prod (e.g., fixed tag, tighter resources)
+
+* **argocd/**: apps that argocd should watch
