@@ -7,7 +7,7 @@ For this story to work, you need to have the following up and running :
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 * [Minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2F.exe+download)
 * [Helm](https://helm.sh/docs/intro/install/)
-
+* [argoCD](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
 ## Minikube
 We are going to start a cluster with Docker as the driver and enough resources for Helm, ArgoCD, Prometheus, Keycloak, etc.
 ```bash
@@ -54,9 +54,10 @@ minikube service hello-minikube
 
 This should open your browser with a working echo server. 
 
-You can then delete your deployment, like this :
+You can then delete your deployment and the service created with the kubectl expose command, like this :
 ```bash
 kubectl delete deployment hello-minikube -n default 
+kubectl delete service hello-minikube -n default 
 ```
 Specifying the namespace is a good habit to avoid mistakes...
 
@@ -142,11 +143,38 @@ gitops-repo/
 
 * **argocd/**: config files for apps that argocd will watch
 
+## Helm
+What is Helm and what is it used for ? Very good question young lad.
+
+For file content, please refer to the repo as copying the content would just cluter this README
+
+```bash
+helm create charts/nginx
+
+# Optional
+# Remove some defaults for simplicity
+rm charts/nginx/templates/tests/*
+
+# Clean default values
+truncate -s 0 charts/nginx/values.yaml
+```
+This will create the template files that will be copied in every app folder (apps/hello-nginx-1/dev/ ...).
+Quite the overhead. 
+#TODO : use Kustomize to clean things up
+
+Test your Helm chart locally
+```bash
+helm install myapp charts/myapp -f apps/myapp/values.yaml
+kubectl get svc myapp
+helm uninstall myapp
+```
+
+## ArgoCD
+
 ### ArgoCD : Setup
 ArgoCD runs in its own namespace. Let’s deploy it using raw manifests:
 ```bash
 kubectl create namespace argocd
-
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 Wait a bit, then check pods:
@@ -155,9 +183,9 @@ kubectl get pods -n argocd
 ```
 
 ### ArgoCD : Config
- Port Forwarding (makes it available at this url : http://127.0.0.1:8080):
- ```bash
- kubectl port-forward svc/argocd-server -n argocd 8080:443
+Port Forwarding (makes it available at this url : http://127.0.0.1:8080):
+```bash
+kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 Login :
 ```bash
@@ -168,6 +196,9 @@ It will prompt for:
 * Password: (you can retrieve from secret — see below)
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+# or the oneliner
+argocd login localhost:8080 --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) --insecure
 ```
 Use that as the password for admin.
 
