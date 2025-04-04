@@ -31,7 +31,7 @@ minikube addons enable metrics-server
 minikube addons enable dashboard
 minikube dashboard &
 ```
-The dashboard will then be accessible at : http://120.0.0.1:58420
+This will open a dashboard in your browser at : http://120.0.0.1:[random]
 
 ### Context
 In Kubernetes, a context defines which cluster, which user, and which namespace your kubectl command is targeting.  
