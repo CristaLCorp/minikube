@@ -6,6 +6,7 @@ For this story to work, you need to have the following up and running :
 * [Docker](https://docs.docker.com/engine/install/) ( or [Docker Desktop](https://www.docker.com/products/docker-desktop/) )
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 * [Minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2F.exe+download)
+* [Helm](https://helm.sh/docs/intro/install/)
 
 ## Minikube
 We are going to start a cluster with Docker as the driver and enough resources for Helm, ArgoCD, Prometheus, Keycloak, etc.
@@ -142,6 +143,16 @@ gitops-repo/
 * **argocd/**: config files for apps that argocd will watch
 
 ### ArgoCD : Setup
+ArgoCD runs in its own namespace. Let’s deploy it using raw manifests:
+```bash
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+Wait a bit, then check pods:
+```bash
+kubectl get pods -n argocd
+```
 
 ### ArgoCD : Config
  Port Forwarding (makes it available at this url : http://127.0.0.1:8080):
