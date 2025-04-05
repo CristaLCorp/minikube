@@ -11,4 +11,4 @@ service:
 
 ingress:
   enabled: true
-  host: hello1.local
+  host: hello1-dev.local
