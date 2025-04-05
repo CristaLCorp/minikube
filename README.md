@@ -217,7 +217,12 @@ Lets see what app are configured so far :
 ```bash
 argocd app list
 ```
-Found yours ? Inspect it :
+Found yours ? 
+If NO -> Create it :
+```bash
+kubectl apply -f argocd/hello-nginx-1-dev.yaml
+```
+If YES -> Inspect it :
 ```bash
 argocd app get hello-nginx-1-dev
 ```
