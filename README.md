@@ -293,7 +293,7 @@ Finally sync the app if need be :
 ```bash
 argocd app sync hello-nginx-1-dev
 ```
-
+While this works great, it is cumbursome to add each app manually. We ll create an argocd app later on, that will watch the argocd directory for new files and add them automatically.
 ### ArgoCD : Debug
 ```bash
 kubectl get applications -n argocd
