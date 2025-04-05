@@ -15,7 +15,7 @@ spec:
         app: {{ include "nginx.name" . }}
     spec:
       imagePullSecrets:
-        - name: ghcr-secret1
+        - name: ghcr-secret
       containers:
         - name: nginx
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
