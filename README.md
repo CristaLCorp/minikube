@@ -300,3 +300,62 @@ kubectl get applications -n argocd
 kubectl logs -n argocd deploy/argocd-application-controller
 kubectl get events -n hello-nginx-1-dev --sort-by=.metadata.creationTimestamp
 ```
+
+## First try !
+As we are using a local setup with minikube, we have to do some tweaking for our setup to be usable.
+First in /etc/hosts add the following line (also in wsl if need be) :
+```bash
+127.0.0.1   hello1-dev.local    # this is defined in app/.../values.yaml/templates/ingress.yaml
+```
+Annnnd ! It does not work -_-'
+
+### Debug : Secret
+Let s debug :
+```bash
+kubectl describe pod -n hello-nginx-1-dev
+# Ouput
+Back-off pulling image "ghcr.io/cristalcorp/hello-nginx-1:latest"
+```
+That s it, our cluster does not have the credentials to pull our app image. 
+
+Of course in a production environment we would use something like Vault to manage our secrets. In our case, we will stick to simpler approach.
+
+We ll create a GitHub Personnal Access Token or [PAT](https://github.com/settings/tokens). Create a classic token with packages permissions.  
+Then we ll feed it to our cluster so it can pull the image :
+```bash
+kubectl create secret docker-registry ghcr-secret --docker-server=ghcr.io --docker-username=[username] --docker-password=[PAT value] --docker-email=[your email] -n hello-nginx-1-dev
+```
+
+Great ! But still not working...
+
+### Debug : Routing
+As we are using minikube via Docker Desktop in this example, the routing gets a bit more tricky.
+
+We have already enable the ingress addon and configure our ingress.yaml template.
+
+Now we need to cheat and create a Tunnel to expose the required port :
+```bash
+minikube tunnel
+```
+And Change Ingress Controller service to LoadBalancer :
+```bash
+kubectl edit svc ingress-nginx-controller -n ingress-nginx
+```
+Change :
+```yaml
+type: NodePort
+```
+to :
+```yaml
+type: LoadBalancer
+```
+
+Now check the new ip :
+```bash
+kubectl get svc -n ingress-nginx
+```
+Look for something like this :
+```bash
+ingress-nginx-controller   LoadBalancer   ...   127.0.0.1   80:xxxxx/TCP
+```
+Now we should be good !
