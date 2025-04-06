@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: ghcr.io/cristalcorp/hello-nginx-1
-  tag: dev-a5ce66e
+  tag: dev-e52a4bb
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
