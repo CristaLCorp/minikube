@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/cristalcorp/hello-nginx-1
-  tag: f211df0ccbe23c13f87f94dd7feff892351ee128
+  tag: af7d9838a4402125aad26f65c108df351253ea16
   pullPolicy: IfNotPresent
 
 service:
